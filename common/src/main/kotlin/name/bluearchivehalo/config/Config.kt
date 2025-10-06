@@ -43,6 +43,8 @@ class Config {
     val spacingCount = Conf(8,rangeConstraint(4..20))
     val mixWhite = Conf(0.3f,rangeConstraint(0f..1f))
     val pulseTail = Conf(0.25f,rangeConstraint(0f..1f))
+    val forceFullRenderDetail = Conf(-1){ it } // Default to -1 (disabled)
+
     object Serializer: SerializerWrapper<Config, Serializer.Desc>("Config",Desc()){
         class Desc: Descriptor<Config>() {
             val levels = "levels" from {levels.field}
@@ -51,6 +53,7 @@ class Config {
             val spacingCount = "spacingCount" from {spacingCount.field}
             val mixWhite = "mixWhite" from {mixWhite.field}
             val pulseTail = "pulseTail" from {pulseTail.field}
+            val forceFullRenderDetail = "forceFullRenderDetail" from {forceFullRenderDetail.field}
         }
         override fun Desc.generate() = Config().also {
             it.levels set levels
@@ -59,6 +62,7 @@ class Config {
             it.spacingCount set spacingCount
             it.mixWhite set mixWhite
             it.pulseTail set pulseTail
+            it.forceFullRenderDetail set forceFullRenderDetail
         }
     }
 }

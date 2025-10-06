@@ -42,6 +42,11 @@ class BeaconHaloRenderer(ctx: BlockEntityRendererFactory.Context?) : BeaconBlock
                 }
             }.toFloat()
             val angleCount = run {
+                val configValue = Config.instance.forceFullRenderDetail.get
+                if (configValue > 0) {
+                    return@run configValue
+                }
+                // Original dynamic LOD logic
                 val cameraPos = MinecraftClient.getInstance().gameRenderer.camera.pos
                 val entityPos = entity.pos.toCenterPos()
                 val distance = entityPos.add(0.0,height.toDouble(),0.0).distanceTo(cameraPos)
